@@ -28,10 +28,7 @@ public class NotificationController {
     public ResponseEntity<Notification> getNotification(@PathVariable Long notificationId) {
         Optional<Notification> notification = notificationService.findById(notificationId);
 
-        if (notification.isEmpty())
-            return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok(notification.get());
+        return notification.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{notificationId}")
