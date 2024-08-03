@@ -9,7 +9,6 @@ import uk.layme.magalums.service.NotificationService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/notifications")
 public class NotificationController {
 
     private final NotificationService notificationService;
