@@ -3,6 +3,7 @@ package uk.layme.magalums.service;
 import org.springframework.stereotype.Service;
 import uk.layme.magalums.controller.dto.ScheduleNotificationDto;
 import uk.layme.magalums.entity.Notification;
+import uk.layme.magalums.entity.Status;
 import uk.layme.magalums.repository.NotificationRepository;
 
 import java.util.Optional;
@@ -22,5 +23,14 @@ public class NotificationService {
 
     public Optional<Notification> findById(Long notificationId) {
         return notificationRepository.findById(notificationId);
+    }
+
+    public void cancelNotification(Long notificationId) {
+        Optional<Notification> notification = findById(notificationId);
+
+        if (notification.isPresent()) {
+            notification.get().setStatus(Status.Values.CANCELED.toStatus());
+            notificationRepository.save(notification.get());
+        }
     }
 }

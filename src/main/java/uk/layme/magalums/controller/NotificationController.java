@@ -19,7 +19,7 @@ public class NotificationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> scheduleNotification(@RequestBody ScheduleNotificationDto dto) {
+    public ResponseEntity<Void> scheduleNotification(@RequestBody ScheduleNotificationDto dto) {
         notificationService.scheduleNotification(dto);
         return ResponseEntity.accepted().build();
     }
@@ -32,5 +32,11 @@ public class NotificationController {
             return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(notification.get());
+    }
+
+    @DeleteMapping("/{notificationId}")
+    public ResponseEntity<Void> cancelNotification(@PathVariable Long notificationId) {
+        notificationService.cancelNotification(notificationId);
+        return ResponseEntity.noContent().build();
     }
 }
